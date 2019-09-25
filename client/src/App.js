@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*******
+ Project 10 - Full Stack App w/ React & Rest API
+*******/
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+import Courses from './components/Courses';
+import Header from './components/Header';
+//import PrivateRoute from './PrivateRoute';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import UserSignUp from './components/UserSignUp';
+
+import withContext from './Context';
+
+const CoursesWithContext = withContext(Courses);
+const HeaderWithContext = withContext(Header);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Router>
+          <HeaderWithContext />
+          <Switch>
+            <Route exact path="/" component={CoursesWithContext}/>
+            <Route path="/signup" component={UserSignUpWithContext} />
+            <Route path="/signin" component={UserSignInWithContext} />
+            <Route path="/signout" component={UserSignOutWithContext} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
 }
 
 export default App;
