@@ -8,19 +8,27 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
+import CourseDetail from './components/CourseDetail';
 import Courses from './components/Courses';
+import CreateCourse from './components/CreateCourse';
 import Header from './components/Header';
-//import PrivateRoute from './PrivateRoute';
+import NotFound from './components/NotFound';
+import UpdateCourse from './components/UpdateCourse';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 
 import withContext from './Context';
 
+
 const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
+const CreateCourseWithContext = withContext(CreateCourse);
 const HeaderWithContext = withContext(Header);
-const UserSignUpWithContext = withContext(UserSignUp);
+const UpdateCourseWithContext = withContext(UpdateCourse)
+;const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
@@ -32,9 +40,13 @@ class App extends React.Component {
           <HeaderWithContext />
           <Switch>
             <Route exact path="/" component={CoursesWithContext}/>
+            <Route exact path="/courses/:id" component={CourseDetailWithContext} />
+            <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
+            <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext}/>
             <Route path="/signup" component={UserSignUpWithContext} />
             <Route path="/signin" component={UserSignInWithContext} />
             <Route path="/signout" component={UserSignOutWithContext} />
+            <Route component={NotFound} />
           </Switch>
         </Router>
       </div>

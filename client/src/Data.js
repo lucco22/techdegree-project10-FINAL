@@ -18,8 +18,8 @@ export default class Data {
     if (requiresAuth) { 
       let encodedCredentials = null;
       //Checks to see if the credentials passed are the email and password
-      if(credentials.email && credentials.password){
-        encodedCredentials = btoa(`${credentials.email}:${credentials.password}`);
+      if(credentials.emailAddress && credentials.password){
+        encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       } else {
         // Credentials are also passed from authData in local storage and are used to authorize requests
         encodedCredentials = credentials;
@@ -104,20 +104,23 @@ export default class Data {
     }
   }
 
-  // Deletes a course
-  async deleteCourse(id, credentials) {
-    const response = await this.api(`/courses/${id}`, 'DELETE', null , true, credentials);
+
+  async deleteCourse(id, user, password) {
+    const username = user.emailAddress;
+    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { username, password });
     if (response.status === 204) {
-      return [];
+        return [];
     }
-    else if (response.status === 403) {
-      return response.json().then(data => {
-        return data.errors;
-      });
+
+    //DELETE /courses/:id error code is 400
+    else if (response.status === 400) {
+        return response.json().then(data => {
+            return data.message;
+        });
     }
+    //reached if 500 or any other status code
     else {
-      // Used for sending down a 500 error
-      return response.status;
+        throw new Error();
     }
-  }
+}
 }

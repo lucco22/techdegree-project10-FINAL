@@ -66,7 +66,7 @@ export default class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
-    const { from } = this.props.location.state || { from: { pathname: '/authenticated' } };
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
     
     context.actions.signIn(emailAddress, password)
       .then(user => {

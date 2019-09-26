@@ -22,7 +22,8 @@ export class Provider extends Component {
       data: this.data,
       actions: {
         signIn: this.signIn,
-        signOut: this.signOut
+        signOut: this.signOut,
+        loadCourse: this.loadCourse
       },
     };
     return (
