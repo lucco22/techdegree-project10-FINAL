@@ -50,13 +50,13 @@ class CourseDetail extends Component {
     const { courses } = this.state;
     return (
       <div className="bounds">
-        {courses.map((course, i) =>
-          <div>
+        {courses.map(course =>
+          <div key={course.id}>
             <div className="actions--bar">
               <div className="bounds">
                 <div className="grid-100">
                   {(authUser && authUser.id === course.user.id) && 
-                    <span><Link key="0" className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
+                    <span><Link  className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
                     <Link key="1" className="button" to="#" onClick={this.delete}>Delete Course</Link></span>
                   }
                   <Link key="2" className="button button-secondary" to="/">Return to List</Link>

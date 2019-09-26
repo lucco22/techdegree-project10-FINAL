@@ -24,7 +24,7 @@ class Courses extends React.Component {
       return (
         <div id="root">
           {courses.map(course =>
-            <div className="bounds">
+            <div className="bounds" key={course.id}>
               <div className="grid-33">
                 <a className="course--module course--link" href={`/courses/${course.id}`}>
                   <h4 className="course--label">Course</h4>
