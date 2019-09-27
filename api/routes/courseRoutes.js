@@ -78,11 +78,17 @@ router.get('/courses/:id', async (req, res) => {
 router.post('/courses', async (req, res, next) => {
   try {
     const course = req.body;
-    const newCourse = await Course.create(course)
-    res.location(`/courses/${newCourse.id}`)
-    res.status(201).end();
+    if(req.body.title && req.body.description) {
+      const newCourse = await Course.create(course);
+      res.location(`/api/courses/${newCourse.id}`);
+      res.status(201).end();
+    } else {
+      const err = new Error('Missing information');
+      err.status = 400;
+      next(err);
+    }
   } catch (error) {
-    error.status = 400;
+    console.log('Error 401 - Unauthorized Request');
     return next(error)
   };
 });

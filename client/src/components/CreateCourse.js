@@ -54,7 +54,8 @@ class CreateCourse extends React.Component {
       title,
       description,
       estimatedTime,
-      materialsNeeded
+      materialsNeeded,
+      
     } = this.state;
 
     const { context } = this.props;
