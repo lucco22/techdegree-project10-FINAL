@@ -1,3 +1,5 @@
+//this component gets rendered once a course is clicked on.
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -26,6 +28,7 @@ class CourseDetail extends Component {
       })
   }
   
+  //delete button function
   delete = async (e) => {
     e.preventDefault();
     const { context } = this.props;
@@ -40,10 +43,10 @@ class CourseDetail extends Component {
     }).then(() => {
       this.props.history.push("/");
     })
-      .catch(err => {
-        console.log(err);
-        this.props.history.push("/error");
-      });
+    .catch(err => {
+      console.log(err);
+      this.props.history.push("/error");
+    });
   }
 
   render() {

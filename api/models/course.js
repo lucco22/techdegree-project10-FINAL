@@ -14,9 +14,11 @@ module.exports = (sequelize) => {
     },
     title: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     description: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     estimatedTime: {
       type: Sequelize.STRING,

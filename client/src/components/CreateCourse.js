@@ -20,7 +20,8 @@ class CreateCourse extends React.Component {
       };
     });
   }
-    
+   
+  //create course button's functionality
   submit = async (e) => {
     e.preventDefault();
     const { context } = this.props;

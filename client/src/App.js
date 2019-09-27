@@ -16,6 +16,7 @@ import CourseDetail from './components/CourseDetail';
 import Courses from './components/Courses';
 import CreateCourse from './components/CreateCourse';
 import ErrorHandler from './components/ErrorHandler';
+import Forbidden from './components/Forbidden';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import UpdateCourse from './components/UpdateCourse';
@@ -50,7 +51,8 @@ class App extends React.Component {
             <Route path="/signup" component={UserSignUpWithContext} />
             <Route path="/signin" component={UserSignInWithContext} />
             <Route path="/signout" component={UserSignOutWithContext} />
-            <Route path = "/error" component={ErrorHandler} />
+            <Route path="/error" component={ErrorHandler} />
+            <Route path="/forbidden" component={Forbidden} />
             <Route component={NotFound} />
           </Switch>
         </Router>
