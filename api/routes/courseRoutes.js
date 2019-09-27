@@ -75,7 +75,7 @@ router.get('/courses/:id', async (req, res) => {
 });
 
 //creates a course, sets the Location header to the URI for the course, and returns no content
-router.post('/courses', authenticatedUser, async (req, res, next) => {
+router.post('/courses', async (req, res, next) => {
   try {
     const course = req.body;
     const newCourse = await Course.create(course)
@@ -99,7 +99,7 @@ router.put('/courses/:id', async (req, res) => {
 })
 
 //deletes a course and returns no content
-router.delete('/courses/:id', authenticatedUser, async (req, res, next) => { 
+router.delete('/courses/:id', async (req, res, next) => { 
     const course = await Course.findByPk(req.params.id)
     if(course) {
      await course.destroy();

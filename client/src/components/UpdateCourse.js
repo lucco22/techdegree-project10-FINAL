@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import Form from './Form';
 
 export default class UpdateCourse extends Component {
   state = {
-    id: '',
+    course: '',
     title: '',
     description: '',
     estimatedTime: '',
@@ -16,8 +15,8 @@ export default class UpdateCourse extends Component {
 
   async componentDidMount() {
     const { context } = this.props;
-    const course = await context.actions.loadCourse(this.props.match.params.id);
-    //Checks to make sure that courses was returned and that it's not a 500 status code
+    const course = await context.actions.updateCourse(this.props.match.params.id);
+    
     if(course && course !== 500){
       this.setState({
         id: course.id,

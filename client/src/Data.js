@@ -21,10 +21,8 @@ export default class Data {
       if(credentials.emailAddress && credentials.password){
         encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       } else {
-        // Credentials are also passed from authData in local storage and are used to authorize requests
         encodedCredentials = credentials;
       }
-      // Authorization header set once encodedCredentials is assigned either value
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
     return fetch(url, options);
@@ -58,23 +56,6 @@ export default class Data {
     }
   }
   
-  // Creates a course
-  async createCourse(course, authenticatedUser) {
-    const response = await this.api('/courses', 'POST', course, authenticatedUser);
-    if (response.status === 201) {
-      return [];
-    }
-    else if (response.status === 401) {
-      return response.json().then(data => {
-        return data.errors;
-      });
-    }
-    else {
-      // Used for sending down a 500 error
-      return response.status;
-    }
-  }
-  
   // Retrieves a specific course
   async getCourse(id) {
     const course = await this.api(`/courses/${id}`);
@@ -87,13 +68,14 @@ export default class Data {
       return course.status;
     }
   }
+  
   // Updates a specific course
   async updateCourse(course, credentials, id) {
     const response = await this.api(`/courses/${id}`, 'PUT', course, true, credentials);
     if (response.status === 204) {
       return [];
     }
-    else if (response.status === 403) {
+    else if (response.status === 401) {
       return response.json().then(data => {
         return data.errors;
       });
@@ -105,8 +87,8 @@ export default class Data {
   }
 
 
-  async deleteCourse(id, user, password) {
-    const username = user.emailAddress;
+  async deleteCourse(id, emailAddress, password) {
+    const username = emailAddress;
     const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { username, password });
     if (response.status === 204) {
         return [];

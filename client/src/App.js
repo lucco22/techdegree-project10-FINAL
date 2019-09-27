@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
+//component imports
 import CourseDetail from './components/CourseDetail';
 import Courses from './components/Courses';
 import CreateCourse from './components/CreateCourse';
@@ -20,8 +21,8 @@ import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 
+//importing Context.js file, then using the components 'WithContext'
 import withContext from './Context';
-
 
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
@@ -40,8 +41,8 @@ class App extends React.Component {
           <HeaderWithContext />
           <Switch>
             <Route exact path="/" component={CoursesWithContext}/>
-            <Route exact path="/courses/:id" component={CourseDetailWithContext} />
             <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
+            <Route exact path="/courses/:id" component={CourseDetailWithContext} />
             <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext}/>
             <Route path="/signup" component={UserSignUpWithContext} />
             <Route path="/signin" component={UserSignInWithContext} />

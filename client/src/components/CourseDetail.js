@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class CourseDetail extends Component {
   constructor(props) {
@@ -24,12 +25,11 @@ class CourseDetail extends Component {
   
   delete = async (e) => {
     e.preventDefault();
-    //const { course } = this.state;
     const { context } = this.props;
     const authUser = context.authenticatedUser;
     let password = prompt("Please enter your password to confirm this action");
-    // used axios here to ensure that I know how to do an axios post as well as get
-    fetch(`http://localhost:5000/api/courses/${this.props.match.params.id}`, {
+
+    axios.delete(`http://localhost:5000/api/courses/${this.props.match.params.id}`, {
       method: 'DELETE',
       auth: {
         username: `${authUser.emailAddress}`,
@@ -51,11 +51,11 @@ class CourseDetail extends Component {
     return (
       <div className="bounds">
         {courses.map((course, i) =>
-          <div>
+        <div key={course.id}>
             <div className="actions--bar">
               <div className="bounds">
                 <div className="grid-100">
-                  {(authUser && authUser.id === course.user.id) && 
+                  {(authUser && authUser.id === course.userId) && 
                     <span><Link key="0" className="button" to={`/courses/${this.props.match.params.id}/update`}>Update Course</Link>
                     <Link key="1" className="button" to="#" onClick={this.delete}>Delete Course</Link></span>
                   }
