@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Courses extends React.Component {
   state = {
@@ -6,8 +7,11 @@ class Courses extends React.Component {
   }
   
   getCourses = () => {
-    fetch('http://localhost:5000/api/courses')
-      .then((response) => response.json())
+    axios.get('http://localhost:5000/api/courses')
+      .then(response => {
+        const courses = response.data;
+        return courses;
+      })
       .then((courses) => this.setState({
         courses : courses
       }))

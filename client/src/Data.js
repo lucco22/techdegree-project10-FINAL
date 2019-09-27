@@ -58,23 +58,6 @@ export default class Data {
     }
   }
   
-  // Creates a course
-  async createCourse(course, authenticatedUser) {
-    const response = await this.api('/courses', 'POST', course, authenticatedUser);
-    if (response.status === 201) {
-      return [];
-    }
-    else if (response.status === 401) {
-      return response.json().then(data => {
-        return data.errors;
-      });
-    }
-    else {
-      // Used for sending down a 500 error
-      return response.status;
-    }
-  }
-  
   // Retrieves a specific course
   async getCourse(id) {
     const course = await this.api(`/courses/${id}`);
@@ -87,9 +70,10 @@ export default class Data {
       return course.status;
     }
   }
+
   // Updates a specific course
-  async updateCourse(course, credentials, id) {
-    const response = await this.api(`/courses/${id}`, 'PUT', course, true, credentials);
+  async updateCourse(courses, credentials, id) {
+    const response = await this.api(`/courses/${id}`, 'PUT', courses, true, credentials);
     if (response.status === 204) {
       return [];
     }
@@ -105,22 +89,5 @@ export default class Data {
   }
 
 
-  async deleteCourse(id, user, password) {
-    const username = user.emailAddress;
-    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { username, password });
-    if (response.status === 204) {
-        return [];
-    }
-
-    //DELETE /courses/:id error code is 400
-    else if (response.status === 401) {
-        return response.json().then(data => {
-            return data.message;
-        });
-    }
-    //reached if 500 or any other status code
-    else {
-        throw new Error();
-    }
-}
+  
 }

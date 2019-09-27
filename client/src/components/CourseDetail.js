@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class CourseDetail extends Component {
   constructor(props) {
@@ -10,8 +11,11 @@ class CourseDetail extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:5000/api/courses/${this.props.match.params.id}`)
-      .then((response) => response.json())
+    axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`)
+      .then(response => {
+        const courses = response.data;
+        return courses;
+      })
       .then((courses) => this.setState({
           courses: courses
         }))
@@ -24,16 +28,14 @@ class CourseDetail extends Component {
   
   delete = async (e) => {
     e.preventDefault();
-    //const { course } = this.state;
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-    let password = prompt("Please enter your password to confirm this action");
-    // used axios here to ensure that I know how to do an axios post as well as get
-    fetch(`http://localhost:5000/api/courses/${this.props.match.params.id}`, {
+
+    axios.delete(`http://localhost:5000/api/courses/${this.props.match.params.id}`, {
       method: 'DELETE',
       auth: {
         username: `${authUser.emailAddress}`,
-        password: password
+        password: `${authUser.password}`
       },
     }).then(() => {
       this.props.history.push("/");

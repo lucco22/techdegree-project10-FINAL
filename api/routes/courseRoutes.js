@@ -94,7 +94,7 @@ router.put('/courses/:id', async (req, res) => {
       await course.update(req.body);
       res.status(204).end();
     } else {
-     res.status(401).json({message: "You're not authorized to modify this course."});
+     res.status(400).json({message: "You're not authorized to modify this course."});
     }
 })
 

@@ -23,7 +23,6 @@ export class Provider extends Component {
       actions: {
         signIn: this.signIn,
         signOut: this.signOut,
-        loadCourse: this.loadCourse
       },
     };
     return (
@@ -52,11 +51,6 @@ export class Provider extends Component {
   signOut = () => {
     this.setState({ authenticatedUser: null });
     Cookies.remove('authenticatedUser');
-  }
-
-  loadCourse = async(id) => {
-    const course = await this.data.getCourse(id);
-    return course;
   }
 }
 
