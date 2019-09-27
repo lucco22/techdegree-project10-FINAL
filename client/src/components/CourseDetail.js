@@ -23,7 +23,7 @@ class CourseDetail extends Component {
         }))
       .catch(error => {
         if (error.status === 404) {
-          console.log('ohh nooo')
+          console.log('Unable to get course details');
         }
       })
   }
