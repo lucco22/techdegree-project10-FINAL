@@ -21,10 +21,8 @@ export default class Data {
       if(credentials.emailAddress && credentials.password){
         encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       } else {
-        // Credentials are also passed from authData in local storage and are used to authorize requests
         encodedCredentials = credentials;
       }
-      // Authorization header set once encodedCredentials is assigned either value
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
     return fetch(url, options);
@@ -70,7 +68,7 @@ export default class Data {
       return course.status;
     }
   }
-
+  
   // Updates a specific course
   async updateCourse(courses, credentials, id) {
     const response = await this.api(`/courses/${id}`, 'PUT', courses, true, credentials);

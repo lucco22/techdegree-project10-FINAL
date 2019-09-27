@@ -58,7 +58,6 @@ class CreateCourse extends React.Component {
 
     const { context } = this.props;
     const authUser = context.authenticatedUser;
-
     return (
       <div className="bounds course--detail">
         <h1>Create Course</h1>
