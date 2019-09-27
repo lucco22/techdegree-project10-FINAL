@@ -66,7 +66,7 @@ export const Consumer = Context.Consumer;
  * A higher-order component that wraps the provided component in a Context Consumer component.
  * @param {class} Component - A React component.
  * @returns {function} A higher-order component.
- */
+*/
 
 export default function withContext(Component) {
   return function ContextComponent(props) {
